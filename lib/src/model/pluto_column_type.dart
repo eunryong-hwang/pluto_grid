@@ -4,6 +4,14 @@ import 'package:intl/intl.dart' as intl;
 abstract class PlutoColumnType {
   dynamic get defaultValue;
 
+  factory PlutoColumnType.calendar({
+    dynamic defaultValue = '',
+  }) {
+    return PlutoColumnTypeText(
+      defaultValue: defaultValue,
+    );
+  }
+
   /// Set as a string column.
   factory PlutoColumnType.text({
     dynamic defaultValue = '',
@@ -174,6 +182,8 @@ extension PlutoColumnTypeExtension on PlutoColumnType {
 
   bool get isTime => this is PlutoColumnTypeTime;
 
+  bool get isCalendar => this is PlutoColumnTypeCalendar;
+
   PlutoColumnTypeText get text {
     if (this is! PlutoColumnTypeText) {
       throw TypeError();
@@ -229,6 +239,30 @@ extension PlutoColumnTypeExtension on PlutoColumnType {
 
   dynamic applyFormat(dynamic value) =>
       hasFormat ? (this as PlutoColumnTypeHasFormat).applyFormat(value) : value;
+}
+
+class PlutoColumnTypeCalendar implements PlutoColumnType {
+  @override
+  final dynamic defaultValue;
+
+  const PlutoColumnTypeCalendar({
+    this.defaultValue,
+  });
+
+  @override
+  bool isValid(dynamic value) {
+    return value is String || value is num;
+  }
+
+  @override
+  int compare(dynamic a, dynamic b) {
+    return _compareWithNull(a, b, () => a.toString().compareTo(b.toString()));
+  }
+
+  @override
+  dynamic makeCompareValue(dynamic v) {
+    return v.toString();
+  }
 }
 
 class PlutoColumnTypeText implements PlutoColumnType {

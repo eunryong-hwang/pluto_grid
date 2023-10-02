@@ -63,6 +63,7 @@ class PlutoBaseRow extends StatelessWidget {
   }
 
   PlutoVisibilityLayoutId _makeCell(PlutoColumn column) {
+    print(column.type);
     return PlutoVisibilityLayoutId(
       id: column.field,
       child: PlutoBaseCell(

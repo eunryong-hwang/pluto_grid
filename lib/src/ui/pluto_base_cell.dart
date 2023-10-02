@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:pluto_grid/src/ui/cells/pluto_calendar_cell.dart';
 
 import 'ui.dart';
 
@@ -393,6 +394,16 @@ class _CellState extends PlutoStateWithChange<_Cell> {
           row: widget.row,
         );
       }
+    }
+    // print(widget.column.type);
+    // not editing state
+    if (widget.column.type.isCalendar) {
+      return PlutoCalendarCell(
+        stateManager: stateManager,
+        cell: widget.cell,
+        column: widget.column,
+        row: widget.row,
+      );
     }
 
     return PlutoDefaultCell(
