@@ -232,9 +232,49 @@ mixin ContainerCellState<T extends ContainerCell> on State<T>
       cellFocus.requestFocus();
     }
 
-    return Container(
-      child: Text("hello world"),
-    );
+    // print(widget.cell.value.runtimeType);
+    if (widget.cell.value.runtimeType == PlutoColumnTypeCalendar) {
+      PlutoColumnTypeCalendar calendar = widget.cell.value;
+      return Container(
+        child: Text('hello'),
+      );
+    } else if (widget.cell.value.runtimeType == String) {
+      return Container(
+        child: Text(widget.cell.value),
+      );
+    } else {
+      Map<String, int> day = widget.cell.value;
+      return Column(
+        children: [
+          Container(
+              child: Text(
+            day['day'].toString(),
+            // textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          )),
+          Container(
+            child: Text(
+              "일정 1",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11,
+                  backgroundColor: Colors.blue,
+                  color: Colors.white),
+            ),
+          ),
+          Container(
+            child: Text(
+              "일정 2",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11,
+                  backgroundColor: Colors.amberAccent,
+                  color: Colors.white),
+            ),
+          )
+        ],
+      );
+    }
   }
 }
 

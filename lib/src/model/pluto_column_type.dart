@@ -7,7 +7,7 @@ abstract class PlutoColumnType {
   factory PlutoColumnType.calendar({
     dynamic defaultValue = '',
   }) {
-    return PlutoColumnTypeText(
+    return PlutoColumnTypeCalendar(
       defaultValue: defaultValue,
     );
   }
